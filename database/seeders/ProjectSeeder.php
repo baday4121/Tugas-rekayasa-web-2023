@@ -63,6 +63,27 @@ class ProjectSeeder extends Seeder
                 'image' => 'asset-management-project7.png',
                 'status' => 'In Development'
             ],
+            [
+                'title' => 'E-Commerce Storefront',
+                'description' => 'Platform toko online dengan sistem keranjang belanja, integrasi Midtrans, dan manajemen produk.',
+                'technology' => 'Laravel, Bootstrap, Midtrans API',
+                'image' => 'ecommerce-project8.webp',
+                'status' => 'Completed'
+            ],
+            [
+                'title' => 'Employee Attendance & Payroll App',
+                'description' => 'Sistem absensi berbasis lokasi (GPS) dan perhitungan gaji karyawan otomatis.',
+                'technology' => 'Laravel, Vue.js, MySQL',
+                'image' => 'attendance-project9.webp',
+                'status' => 'Completed'
+            ],
+            [
+                'title' => 'Smart CCTV Monitoring Integration',
+                'description' => 'Modul integrasi streaming CCTV dan pencatatan log keamanan lingkungan kantor secara terpusat.',
+                'technology' => 'Laravel, Python, WebSockets',
+                'image' => 'cctv-monitoring-project10.webp',
+                'status' => 'In Development'
+            ],
         ];
 
         foreach ($projects as $project) {
