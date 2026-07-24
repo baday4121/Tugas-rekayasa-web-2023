@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prodi Sistem Informasi - @yield('title')</title>
+    <title>Portfolio</title>
+    
+    {{-- Bootstrap 5 --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
     <style>
-        body { font-family: sans-serif; margin: 0; padding: 0; background-color: white; }
-        .content-area { padding: 40px 10%; min-height: 250px; }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
 
     @include('partials.navbar')
 
-    <div class="content-area">
+    <main>
         @yield('content')
-    </div>
+    </main>
 
     @include('partials.footer')
 
+    {{-- Script Javascript Bootstrap 5 --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmxc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

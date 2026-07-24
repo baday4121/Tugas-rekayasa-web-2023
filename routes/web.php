@@ -1,18 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController; 
 
-// Route untuk Halaman Home
 Route::get('/', function () {
     return view('pages.home');
 });
 
-// Route untuk Halaman Profile
-Route::get('/profile', function () {
-    return view('pages.profile');
-});
-
-// Route untuk Halaman About
 Route::get('/about', function () {
     return view('pages.about');
 });
+
+Route::get('/contact', function () {
+    return view('pages.contact');
+});
+
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::get('/projects/{id}', [ProjectController::class, 'show']);
