@@ -45,4 +45,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/projects/{id}/edit', [AdminProjectController::class, 'edit']);
     Route::put('/projects/{id}', [AdminProjectController::class, 'update']);
     Route::delete('/projects/{id}', [AdminProjectController::class, 'destroy']);
+    // Export PDF
+    Route::get('/projects/pdf', [AdminProjectController::class, 'cetakPdf'])->name('projects.pdf');
 });

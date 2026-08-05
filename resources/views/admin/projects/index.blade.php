@@ -1,9 +1,12 @@
 @extends('admin.template')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
     <h2 class="fw-normal text-dark mb-0" style="font-size: 1.75rem;">Data Projects</h2>
-    <a href="{{ url('/admin/projects/create') }}" class="btn btn-primary btn-sm px-3 py-2 fw-medium">Tambah Project</a>
+    <div class="d-flex gap-2">
+        <a href="{{ url('/admin/projects/create') }}" class="btn btn-primary btn-sm px-3 py-2 fw-medium">Tambah Project</a>
+        <a href="{{ route('projects.pdf') }}" class="btn btn-danger btn-sm px-3 py-2 fw-medium" target="_blank">Cetak PDF</a>
+    </div>
 </div>
 
 @if(session('success'))
@@ -19,7 +22,7 @@
 @endif
 
 <div class="card border-0 shadow-sm rounded-3 p-3 bg-white">
-    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-3">
         <form method="GET" action="{{ url('/admin/projects') }}" class="d-flex align-items-center gap-2">
             <input type="hidden" name="search" value="{{ request('search') }}">
             <label for="per_page" class="text-secondary small">Tampilkan:</label>
@@ -31,10 +34,10 @@
             <span class="text-secondary small">data</span>
         </form>
 
-        <form method="GET" action="{{ url('/admin/projects') }}" class="d-flex align-items-center gap-2">
+        <form method="GET" action="{{ url('/admin/projects') }}" class="d-flex align-items-center gap-2 w-100" style="max-width: 300px;">
             <input type="hidden" name="per_page" value="{{ request('per_page', 10) }}">
-            <div class="input-group input-group-sm">
-                <input type="text" name="search" class="form-control" placeholder="Cari project..." value="{{ request('search') }}" style="min-width: 200px;">
+            <div class="input-group input-group-sm w-100">
+                <input type="text" name="search" class="form-control" placeholder="Cari project..." value="{{ request('search') }}">
                 <button class="btn btn-outline-primary" type="submit">Cari</button>
                 @if(request('search'))
                     <a href="{{ url('/admin/projects') }}" class="btn btn-outline-secondary">Reset</a>
@@ -75,7 +78,6 @@
                     <td>{{ $project->technology }}</td>
                     <td>{{ Str::limit($project->description, 80) }}</td>
                     <td class="text-center">
-                        <!-- Status dinamis teks biasa tanpa warna khusus -->
                         <span>{{ $project->status }}</span>
                     </td>
                     <td class="text-center">
@@ -97,7 +99,7 @@
         </table>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap gap-2">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3 gap-3">
         <div class="text-muted small">
             Menampilkan {{ $projects->firstItem() ?? 0 }} sampai {{ $projects->lastItem() ?? 0 }} dari {{ $projects->total() }} data
         </div>
