@@ -62,10 +62,29 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav align-items-lg-center gap-2 mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link text-white px-3 py-1 rounded bg-white bg-opacity-10" href="{{ url('/admin') }}">Dashboard</a>
+                        <a class="nav-link text-white px-3 py-1" href="{{ url('/admin') }}">Dashboard</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white px-3 py-1 rounded bg-danger bg-opacity-75" href="{{ url('/') }}" onclick="return confirm('Yakin ingin keluar?');">Logout</a>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white fw-medium" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="navbarDropdownUser">
+                            <li>
+                                <span class="dropdown-item-text text-muted small px-3">
+                                    {{ Auth::user()->email }}
+                                </span>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('admin.logout') }}" method="POST" class="m-0">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger fw-medium" onclick="return confirm('Yakin ingin keluar dari halaman admin?');">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

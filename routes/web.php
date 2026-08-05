@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController; 
 use App\Http\Controllers\AdminProjectController;
+use App\Http\Controllers\Auth\AdminAuthController; // Tambahkan use ini
 
+// --- Routes Publik ---
 Route::get('/', function () {
     return view('pages.home');
 });
@@ -16,19 +18,31 @@ Route::get('/contact', function () {
     return view('pages.contact');
 });
 
-Route::get('/admin', function () {
-    return view('admin.home');
-});
-
-Route::get('/admin/home', function () {
-    return view('admin.home');
-});
-
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
-Route::get('/admin/projects', [AdminProjectController::class, 'index']);
-Route::get('/admin/projects/create', [AdminProjectController::class, 'create']);
-Route::post('/admin/projects', [AdminProjectController::class, 'store']);
-Route::get('/admin/projects/{id}/edit', [AdminProjectController::class, 'edit']);
-Route::put('/admin/projects/{id}', [AdminProjectController::class, 'update']);
-Route::delete('/admin/projects/{id}', [AdminProjectController::class, 'destroy']);
+
+// --- Routes Otentikasi Admin ---
+Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+Route::post('/admin/login', [AdminAuthController::class, 'login']);
+Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+// --- Routes Area Admin ---
+Route::prefix('admin')->middleware('auth')->group(function () {
+    
+    // Halaman Dashboard Admin
+    Route::get('/', function () {
+        return view('admin.home');
+    });
+
+    Route::get('/home', function () {
+        return view('admin.home');
+    });
+
+    // CRUD Projects Admin
+    Route::get('/projects', [AdminProjectController::class, 'index']);
+    Route::get('/projects/create', [AdminProjectController::class, 'create']);
+    Route::post('/projects', [AdminProjectController::class, 'store']);
+    Route::get('/projects/{id}/edit', [AdminProjectController::class, 'edit']);
+    Route::put('/projects/{id}', [AdminProjectController::class, 'update']);
+    Route::delete('/projects/{id}', [AdminProjectController::class, 'destroy']);
+});

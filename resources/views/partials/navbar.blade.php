@@ -16,7 +16,14 @@
                     <a class="nav-link {{ Request::is('contact') ? 'active' : '' }}" href="{{ url('/contact') }}">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('projects*') ? 'active' : '' }}" href="{{ url('/projects') }}">Projects</a>
+                    <a class="nav-link {{ Request::is('projects*') && !Request::is('admin*') ? 'active' : '' }}" href="{{ url('/projects') }}">Projects</a>
+                </li>
+                <li class="nav-item">
+                    @if(Auth::check())
+                        <a class="nav-link {{ Request::is('admin*') ? 'active' : '' }} text-primary fw-medium" href="{{ url('/admin') }}">Admin</a>
+                    @else
+                        <a class="nav-link" href="{{ url('/admin/login') }}">Admin</a>
+                    @endif
                 </li>
             </ul>
         </div>
