@@ -146,7 +146,7 @@
                 "lengthMenu": "_MENU_ entries per page"
             },
             "ajax": {
-                "url": "/api/users", 
+                "url": "/api-data/users", 
                 "type": "GET",
                 "dataSrc": "data" 
             },
@@ -209,7 +209,7 @@
             btnSubmit.text('Menyimpan...').prop('disabled', true);
 
             $.ajax({
-                url: '/api/users', 
+                url: '/api-data/users', 
                 type: 'POST',
                 data: formData,
                 success: function(response) {
@@ -238,7 +238,7 @@
             let id = $(this).data('id');
             
             $.ajax({
-                url: '/api/users/' + id,
+                url: '/api-data/users/' + id, 
                 type: 'GET',
                 success: function(response) {
                     if(response.success) {
@@ -283,7 +283,7 @@
             }
 
             $.ajax({
-                url: '/api/users/' + id,
+                url: '/api-data/users/' + id, 
                 type: 'PUT',
                 data: formData,
                 success: function(response) {
@@ -312,7 +312,7 @@
             
             if(confirm('Apakah Anda yakin ingin menghapus user ini?')) {
                 $.ajax({
-                    url: '/api/users/' + id,
+                    url: '/api-data/users/' + id, 
                     type: 'DELETE',
                     success: function(response) {
                         if(response.success) {

@@ -30,6 +30,7 @@ $app = Application::configure(
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        apiPrefix: 'api-data',
     )
     ->withMiddleware(function (Middleware $middleware): void {
         //
