@@ -58,11 +58,14 @@ class AdminProjectController extends Controller
             $imageName = time() . '_' . $image->getClientOriginalName();
             $destinationPath = public_path('images/projects');
             
-            if (!File::exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
+            try {
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0755, true, true);
+                }
+                $image->move($destinationPath, $imageName);
+            } catch (\Exception $e) {
+
             }
-            
-            $image->move($destinationPath, $imageName);
         }
 
         Project::create([
@@ -97,19 +100,27 @@ class AdminProjectController extends Controller
         $imageName = $project->image;
         if ($request->hasFile('image')) {
 
-            if ($project->image && File::exists(public_path('images/projects/' . $project->image))) {
-                File::delete(public_path('images/projects/' . $project->image));
+            try {
+                if ($project->image && File::exists(public_path('images/projects/' . $project->image))) {
+                    File::delete(public_path('images/projects/' . $project->image));
+                }
+            } catch (\Exception $e) {
+                
             }
 
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $destinationPath = public_path('images/projects');
             
-            if (!File::exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true, true);
-            }
             
-            $image->move($destinationPath, $imageName);
+            try {
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0755, true, true);
+                }
+                $image->move($destinationPath, $imageName);
+            } catch (\Exception $e) {
+                
+            }
         }
 
         $project->update([
@@ -127,9 +138,15 @@ class AdminProjectController extends Controller
     {
         $project = Project::findOrFail($id);
 
-        if ($project->image && File::exists(public_path('images/projects/' . $project->image))) {
-            File::delete(public_path('images/projects/' . $project->image));
+        
+        try {
+            if ($project->image && File::exists(public_path('images/projects/' . $project->image))) {
+                File::delete(public_path('images/projects/' . $project->image));
+            }
+        } catch (\Exception $e) {
+            
         }
+        
         $project->delete();
         return redirect('/admin/projects')->with('success', 'Project berhasil dihapus!');
     }

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 $runtimePath = '/tmp/laravel';
 $storagePath = $runtimePath . '/storage';
 
-$directories = [
+foreach ([
     $storagePath . '/app',
     $storagePath . '/framework',
     $storagePath . '/framework/cache',
@@ -16,15 +16,13 @@ $directories = [
     $storagePath . '/framework/sessions',
     $storagePath . '/framework/views',
     $storagePath . '/logs',
-];
-
-foreach ($directories as $directory) {
+] as $directory) {
     if (!is_dir($directory)) {
         mkdir($directory, 0755, true);
     }
 }
 
-return Application::configure(
+$app = Application::configure(
     basePath: dirname(__DIR__)
 )
     ->withRouting(
@@ -41,5 +39,8 @@ return Application::configure(
             fn (Request $request) => $request->is('api/*'),
         );
     })
-    ->create()
-    ->useStoragePath($storagePath);
+    ->create();
+
+$app->useStoragePath($storagePath);
+
+return $app;
